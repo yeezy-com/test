@@ -20,17 +20,6 @@ jobs:
           distribution: 'corretto'
           cache: 'gradle'
 
-      #
-      # - name: Gradle 패키지 캐시
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: |
-      #       ~/.gradle/caches
-      #       ~/.gradle/wrapper
-      #     key: ${{ runner.os }}-gradle-${{ hashFiles('backend/**/*.gradle*', 'backend/**/gradle-wrapper.properties') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-gradle-
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
@@ -39,14 +28,6 @@ jobs:
 
       - name: Run code quality checks
         run: ./gradlew check
-
-      - name: Generate test report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
-        with:
-          name: Gradle Tests
-          path: backend/build/test-results/test/*.xml
-          reporter: java-junit
 
       - name: Build with Gradle
         run: ./gradlew build -x test -x check
