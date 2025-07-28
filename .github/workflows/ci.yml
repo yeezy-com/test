@@ -18,16 +18,7 @@ jobs:
         with:
           java-version: '21'
           distribution: 'corretto'
-
-      - name: Gradle 패키지 캐시
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          cache: 'gradle'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -43,7 +34,7 @@ jobs:
         if: success() || failure()
         with:
           name: Gradle Tests
-          path: backend/build/test-results/test/*.xml
+          path: build/test-results/test/*.xml
           reporter: java-junit
 
       - name: Build with Gradle
