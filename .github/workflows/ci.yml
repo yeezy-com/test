@@ -23,11 +23,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Run code quality checks
-        run: ./gradlew check
-
-      - name: Run tests
-        run: ./gradlew test
+      - name: Build with Gradle
+        run: ./gradlew build
 
       - name: Generate test report
         uses: dorny/test-reporter@v1
@@ -36,6 +33,3 @@ jobs:
           name: Gradle Tests
           path: build/test-results/test/*.xml
           reporter: java-junit
-
-      - name: Build with Gradle
-        run: ./gradlew build -x test -x check
