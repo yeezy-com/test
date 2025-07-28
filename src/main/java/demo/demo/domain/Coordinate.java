@@ -52,6 +52,7 @@ public record Coordinate(
     }
 
     public boolean isRightOf(Coordinate other) {
+        int i = 0;
         return other.longitude < this.longitude;
     }
 
